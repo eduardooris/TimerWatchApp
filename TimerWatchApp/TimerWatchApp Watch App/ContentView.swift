@@ -8,14 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+  @State var minutes:Int = 0
+  @State var seconds:Int = 0
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+      NavigationStack {
+        HStack {
+          Picker(selection: $minutes, label: Text("Minutos")) {
+            ForEach(0...59, id: \.self) { counter in
+              Text("\(counter)")
+            }
+          }
+          Picker(selection: $seconds, label: Text("Segundos")) {
+              ForEach(0...59, id: \.self) { number in Text("\(number)")}
+          }
         }
-        .padding()
+        VStack {
+            NavigationLink(destination: CountdownView(minute: minutes, seconds: seconds)) {
+                Text("Go")
+            }
+        }
+      }
     }
 }
 
